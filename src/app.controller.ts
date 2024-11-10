@@ -1,16 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import Id from './shared/Id';
 
 @Controller('/users')
 export class AppController {
   constructor(private readonly appService: PrismaService) {}
-
-  // @Get()
-  // getHello(): string {
-  //   return this.appService.getHello();
-  // }
-
   @Post()
   createUser(@Body() user: any) {
     return this.appService.create('user', {
@@ -27,5 +21,10 @@ export class AppController {
   @Delete('/:id')
   deleteUser(@Param('id') id: string) {
     return this.appService.delete('user', id);
+  }
+
+  @Put('/:id')
+  updateUser(@Param('id') id: string, @Body() body: any) {
+    return this.appService.update('user', body, id);
   }
 }

@@ -11,3 +11,12 @@ Content-Type: application/json
 GET http://localhost:3000/users
 ###
 DELETE http://localhost:3000/users/063d2eac-b770-47ee-85ae-2767333f1a28
+###
+PUT http://localhost:3000/users/e59d6aee-27e9-4ca4-8cfa-59d147be1aa6
+Content-Type: application/json
+
+{
+  "name": "DoeAlexandre",
+  "email": "doealexandre@gmail.com",
+  "password": "12345679012123213"
+}
