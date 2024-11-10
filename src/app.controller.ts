@@ -1,12 +1,31 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { PrismaService } from './prisma.service';
+import Id from './shared/Id';
 
-@Controller()
+@Controller('/users')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: PrismaService) {}
+
+  // @Get()
+  // getHello(): string {
+  //   return this.appService.getHello();
+  // }
+
+  @Post()
+  createUser(@Body() user: any) {
+    return this.appService.create('user', {
+      ...user,
+      id: user.id ?? Id.create(),
+    });
+  }
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  findUsers() {
+    return this.appService.findMany('user');
+  }
+
+  @Delete('/:id')
+  deleteUser(@Param('id') id: string) {
+    return this.appService.delete('user', id);
   }
 }
